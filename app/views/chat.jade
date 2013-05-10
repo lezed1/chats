@@ -1,0 +1,14 @@
+#chat.chat
+        #headerContainer.span10
+            h3.inline Messages: 
+            span.input-prepend
+                span.add-on Name:
+                input(type='text', ng-model='username', placeholder='Enter your name!')
+                    i.icon-share-alt
+                    
+            p.ng-cloak(id='message-{{messageNumber}}', ng-repeat='(messageNumber, message) in messageArray') {{message.username}}: {{message.text}}
+
+        form#messageContainer.navbar.navbar-fixed-bottom.span12(ng-submit='sendMessage()')
+            div.input-append
+                input.span4(type='text', form='messageContainer', ng-model='messageText', placeholder='Enter your message!')
+                button.btn(type='submit', ng-click='sendMessage()') Send
