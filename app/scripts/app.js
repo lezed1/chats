@@ -13,7 +13,7 @@ angular.module('lezed1ChatYeomanApp', [])
       })
       .otherwise({
         templateUrl: '404.html'
-      })
+      });
       /*.otherwise({
         redirectTo: '/'
       });*/
