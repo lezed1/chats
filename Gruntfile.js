@@ -25,6 +25,10 @@ module.exports = function (grunt) {
         files: ['<%= yeoman.app %>/scripts/{,*/}*.coffee'],
         tasks: ['coffee:dist']
       },
+      jade: {
+        files: '<%= yeoman.app %>/{,*/}*.jade',
+        tasks: 'jade'
+      },
       coffeeTest: {
         files: ['test/spec/{,*/}*.coffee'],
         tasks: ['coffee:test']
@@ -97,6 +101,33 @@ module.exports = function (grunt) {
         'Gruntfile.js',
         '<%= yeoman.app %>/scripts/{,*/}*.js'
       ]
+    },
+    jade: {
+      // Move the compiled .html files from .tmp/ to dist/
+      dist: {
+        options: {
+          client: false
+        },
+        files: [{
+          expand: true,
+          cwd: '<%= yeoman.app %>',
+          dest: '.tmp',
+          src: '{,*/}*.jade',
+          ext: '.html'
+        }]
+      }
+      /*compile: {
+        files: [{
+          expand: true,
+          cwd: '<%= yeoman.app %>/',
+          src: ['{,/*}*.jade'],
+          dest: '.tmp/',
+          ext: '.html'
+        }],
+        options: {
+          client: false
+        }
+      }*/
     },
     karma: {
       unit: {
@@ -202,6 +233,11 @@ module.exports = function (grunt) {
           cwd: '<%= yeoman.app %>',
           src: ['*.html', 'views/*.html'],
           dest: '<%= yeoman.dist %>'
+        },{
+          expand: true,
+          cwd: '.tmp',
+          src: ['*.html', 'views/*.html'],
+          dest: '<%= yeoman.dist %>'
         }]
       }
     },
@@ -262,9 +298,19 @@ module.exports = function (grunt) {
 
   grunt.renameTask('regarde', 'watch');
 
+  grunt.registerTask('original-server', [
+    'clean:server',
+    'coffee:dist',
+    'livereload-start',
+    'connect:livereload',
+    'open',
+    'watch'
+  ]);
+
   grunt.registerTask('server', [
     'clean:server',
     'coffee:dist',
+    'jade',
     'livereload-start',
     'connect:livereload',
     'open',
@@ -274,6 +320,7 @@ module.exports = function (grunt) {
   grunt.registerTask('test', [
     'clean:server',
     'coffee',
+    'jade',
     'connect:test',
     'karma'
   ]);
@@ -283,6 +330,7 @@ module.exports = function (grunt) {
     'jshint',
     'test',
     'coffee',
+    'jade',
     'useminPrepare',
     'imagemin',
     'cssmin',
@@ -296,5 +344,5 @@ module.exports = function (grunt) {
     'usemin'
   ]);
 
-  grunt.registerTask('default', ['build']);
+  grunt.registerTask('default', ['server']);
 };

@@ -4,7 +4,7 @@ angular.module('lezed1ChatYeomanApp', [])
   .config(function ($routeProvider) {
     $routeProvider
       .when('/', {
-        templateUrl: 'views/chat.jade',
+        templateUrl: 'views/chat.html',
         controller: 'MainCtrl'
       })
       .when('/main', {
