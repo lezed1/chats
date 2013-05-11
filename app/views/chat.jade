@@ -6,7 +6,7 @@
                 input(type='text', ng-model='username', placeholder='Enter your name!')
                     i.icon-share-alt
                     
-            p.ng-cloak(id='message-{{messageNumber}}', ng-repeat='(messageNumber, message) in messageArray') {{message.username}}: {{message.text}}
+            p(id='message-{{messageNumber}}', ng-repeat='(messageNumber, message) in messageArray') {{message.username}}: {{message.text}}
 
         form#messageContainer.navbar.navbar-fixed-bottom.span12(ng-submit='sendMessage()')
             div.input-append

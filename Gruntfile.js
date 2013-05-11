@@ -27,7 +27,7 @@ module.exports = function (grunt) {
       },
       jade: {
         files: '<%= yeoman.app %>/{,*/}*.jade',
-        tasks: 'jade'
+        tasks: ['jade', 'livereload']
       },
       coffeeTest: {
         files: ['test/spec/{,*/}*.coffee'],
