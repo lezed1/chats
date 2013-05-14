@@ -1,14 +1,74 @@
-#chat.chat
+.navbar.navbar-fixed-top
+    .navbar-inner
+        .container
+            a.brand(href="#") Chats
+            form.navbar-form.pull-right
+                div.input-prepend
+                    span.add-on Name:
+                    input.input-large(type='text', ng-model='username', placeholder='Enter your name!')
+.container
+    .row-fluid
         #headerContainer.span10
             h3.inline Messages: 
-            span.input-prepend
-                span.add-on Name:
-                input(type='text', ng-model='username', placeholder='Enter your name!')
-                    i.icon-share-alt
+
+            table.table.table-bordered.table-hover
+                thead
+                    tr
+                        th
+                            i.pull-right Username
+                        th Message
+                tbody
+                    tr
+                        td
+                            i.pull-right lezed1
+                        td Hello
+                    tr
+                        td
+                            i.pull-right lezed1
+                        td Hello
+                    tr
+                        td
+                            i.pull-right lezed1
+                        td Hello
+                    tr(ng-repeat='(messageNumber, message) in messageArray')
+                        td
+                            i.pull-right {{message.username}}
+                        td {{message.text}}
                     
+
             p(id='message-{{messageNumber}}', ng-repeat='(messageNumber, message) in messageArray') {{message.username}}: {{message.text}}
 
-        form#messageContainer.navbar.navbar-fixed-bottom.span12(ng-submit='sendMessage()')
-            div.input-append
-                input.span4(type='text', form='messageContainer', ng-model='messageText', placeholder='Enter your message!')
-                button.btn(type='submit', ng-click='sendMessage()') Send
+            p hi
+            p hi
+            p hi
+            p hi
+            p hi
+            p hi
+            p hi
+            p hi
+            p hi
+            p hi
+            p hi
+            p hi
+            p hi
+            p hi
+            p hi
+            p hi
+            p hi
+            p hi
+            p hi
+            p hi
+            p hi
+            p hi
+            p hi
+            p hi
+            p hi
+
+.navbar.navbar-fixed-bottom
+    .navbar-inner
+        .container
+            form.navbar-form(ng-submit='sendMessage()')
+                div.input-append
+                    input(type='text', form='messageContainer', ng-model='messageText', placeholder='Enter your message!')
+                    button.btn(type='submit', ng-click='sendMessage()') Send
+
