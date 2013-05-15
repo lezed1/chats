@@ -4,13 +4,13 @@ angular.module("chat.services", [])
     socket = io.connect(window.location.protocol + document.domain)
     on: (eventName, callback) ->
         socket.on eventName, ->
-            args = arguments_
+            args = arguments
             $rootScope.$apply ->
                 callback.apply socket, args
 
     emit: (eventName, data, callback) ->
         socket.emit eventName, data, ->
-            args = arguments_
+            args = arguments
             $rootScope.apply ->
                 callback.apply socket, args  if callback
 
