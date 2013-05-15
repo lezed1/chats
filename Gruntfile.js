@@ -1,4 +1,6 @@
 'use strict';
+
+var path = require('path');
 var lrSnippet = require('grunt-contrib-livereload/lib/utils').livereloadSnippet;
 var mountFolder = function (connect, dir) {
   return connect.static(require('path').resolve(dir));
@@ -22,7 +24,7 @@ module.exports = function (grunt) {
     yeoman: yeomanConfig,
     watch: {
       coffee: {
-        files: ['<%= yeoman.app %>/scripts/{,*/}*.coffee'],
+        files: ['<%= yeoman.app %>/{,*/}*.coffee'],
         tasks: ['coffee:dist']
       },
       jade: {
@@ -45,6 +47,17 @@ module.exports = function (grunt) {
           '<%= yeoman.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
         ],
         tasks: ['livereload']
+      }
+    },
+    express: {
+      livereload: {
+        options: {
+          port: process.env.PORT || 9000,
+          // Change this to '0.0.0.0' to access the server from outside.
+          hostname: process.env.HOST || '0.0.0.0',
+          bases: path.resolve('.tmp'),
+          server: path.resolve('.tmp/express.js')
+        }
       }
     },
     connect: {
@@ -103,10 +116,10 @@ module.exports = function (grunt) {
       ]
     },
     jade: {
-      // Move the compiled .html files from .tmp/ to dist/
       dist: {
         options: {
-          client: false
+          client: false,
+          pretty: true
         },
         files: [{
           expand: true,
@@ -116,18 +129,17 @@ module.exports = function (grunt) {
           ext: '.html'
         }]
       }
-      /*compile: {
+    },
+    stylus: {
+      dist: {
         files: [{
           expand: true,
-          cwd: '<%= yeoman.app %>/',
-          src: ['{,/*}*.jade'],
-          dest: '.tmp/',
-          ext: '.html'
-        }],
-        options: {
-          client: false
-        }
-      }*/
+          cwd: '<%= yeoman.app %>',
+          dest: '.tmp',
+          src: '{,*/}*.styl',
+          ext: '.css'
+        }]
+      }
     },
     karma: {
       unit: {
@@ -142,6 +154,12 @@ module.exports = function (grunt) {
           cwd: '<%= yeoman.app %>/scripts',
           src: '{,*/}*.coffee',
           dest: '.tmp/scripts',
+          ext: '.js'
+        },{
+          expand: true,
+          cwd: '<%= yeoman.app %>/',
+          src: 'express.coffee',
+          dest: '.tmp/',
           ext: '.js'
         }]
       },
@@ -291,6 +309,14 @@ module.exports = function (grunt) {
             'images/{,*/}*.{gif,webp}',
             'styles/fonts/*'
           ]
+        },{
+          expand: true,
+          dot: true,
+          cwd: '.tmp',
+          dest: '<%= yeoman.dist %>',
+          src: [
+            'express.js'
+          ]
         }]
       }
     }
@@ -311,8 +337,10 @@ module.exports = function (grunt) {
     'clean:server',
     'coffee:dist',
     'jade',
+    'stylus',
     'livereload-start',
-    'connect:livereload',
+    //'connect:livereload',
+    'express',
     'open',
     'watch'
   ]);
@@ -321,8 +349,9 @@ module.exports = function (grunt) {
     'clean:server',
     'coffee',
     'jade',
-    'connect:test',
-    'karma'
+    'stylus',
+    'connect:test'/*,
+    'karma'*/
   ]);
 
   grunt.registerTask('build', [
@@ -331,6 +360,7 @@ module.exports = function (grunt) {
     'test',
     'coffee',
     'jade',
+    'stylus',
     'useminPrepare',
     'imagemin',
     'cssmin',

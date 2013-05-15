@@ -1,7 +1,10 @@
 {
   "name": "lezed1-chat-yeoman",
   "version": "0.0.0",
-  "dependencies": {},
+  "dependencies": {
+    "express": "~3.2.4",
+    "socket.io": "~0.9.14"
+  },
   "devDependencies": {
     "grunt": "~0.4.1",
     "grunt-contrib-copy": "~0.4.0",
@@ -26,7 +29,8 @@
     "matchdep": "~0.1.1",
     "grunt-google-cdn": "~0.1.1",
     "grunt-ngmin": "~0.0.2",
-    "grunt-express": "~0.3.3"
+    "grunt-express": "~0.3.3",
+    "grunt-contrib-stylus": "~0.5.0"
   },
   "engines": {
     "node": ">=0.8.0"
