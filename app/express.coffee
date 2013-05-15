@@ -11,6 +11,10 @@ io.sockets.on "connection", (socket) ->
     console.log data
     socket.broadcast.emit "message", data
 
+io.set('log level', 2)
+
+app.use(require('grunt-contrib-livereload/lib/utils').livereloadSnippet)
+
 exports = module.exports = server
 
 # delegates user() function

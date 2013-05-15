@@ -3,7 +3,7 @@
 var path = require('path');
 var lrSnippet = require('grunt-contrib-livereload/lib/utils').livereloadSnippet;
 var mountFolder = function (connect, dir) {
-  return connect.static(require('path').resolve(dir));
+  return connect.static(path.resolve(dir));
 };
 
 module.exports = function (grunt) {
@@ -29,7 +29,11 @@ module.exports = function (grunt) {
       },
       jade: {
         files: '<%= yeoman.app %>/{,*/}*.jade',
-        tasks: ['jade', 'livereload']
+        tasks: ['jade']
+      },
+      stylus: {
+      files: '<%= yeoman.app %>/{,*/}*.styl',
+        tasks: ['stylus']
       },
       coffeeTest: {
         files: ['test/spec/{,*/}*.coffee'],
@@ -41,7 +45,7 @@ module.exports = function (grunt) {
       },
       livereload: {
         files: [
-          '<%= yeoman.app %>/{,*/}*.html',
+          '{.tmp,<%= yeoman.app %>}/{,*/}*.html',
           '{.tmp,<%= yeoman.app %>}/styles/{,*/}*.css',
           '{.tmp,<%= yeoman.app %>}/scripts/{,*/}*.js',
           '<%= yeoman.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
@@ -55,7 +59,7 @@ module.exports = function (grunt) {
           port: process.env.PORT || 9000,
           // Change this to '0.0.0.0' to access the server from outside.
           hostname: process.env.HOST || '0.0.0.0',
-          bases: path.resolve('.tmp'),
+          bases: [path.resolve('.tmp'),path.resolve(yeomanConfig.app)],
           server: path.resolve('.tmp/express.js')
         }
       }

@@ -5,42 +5,27 @@
                 a.brand(href="#") Chats
                 form.navbar-form.pull-right
                     div.input-prepend
-                        span.add-on Name:
-                        input.input-large(type='text', ng-model='username', placeholder='Enter your name!')
+                        span.add-on 
+                            i.icon-user
+                        input.input-large(type='text', ng-model='username', placeholder='Enter your name!', autofocus)
     .container
         .row-fluid
-            #headerContainer.span12
-                h3.inline Messages: 
+            div(data-spy='affix', data-offset-top='20')
+                span.span2
+                    i.pull-right Username
+                span.span10 Message
 
-                table.table.table-bordered.table-hover
-                    thead
-                        tr
-                            th
-                                i.pull-right Username
-                            th Message
-                    tbody
-                        tr
-                            td
-                                i.pull-right lezed1
-                            td Hello
-                        tr
-                            td
-                                i.pull-right lezed1
-                            td Hello
-                        tr
-                            td
-                                i.pull-right lezed1
-                            td Hello
-                        tr(ng-repeat='(messageNumber, message) in messageArray')
-                            td
-                                i.pull-right {{message.username}}
-                            td {{message.text}}
+            div(ng-repeat='(messageNumber, message) in messageArray')
+                span.span2
+                    i.pull-right {{message.username}}
+                span.span10 
+                    span.pull-left {{message.text}}
                         
     .navbar.navbar-fixed-bottom
         .navbar-inner
             .container
                 form.navbar-form(ng-submit='sendMessage()')
                     div.input-append
-                        input(type='text', ng-model='messageText', placeholder='Enter your message!')
-                        button.btn(type='submit') Send
-
+                        input.input-large(type='text', ng-model='messageText', placeholder='Enter your message!')
+                        button.btn(type='submit')
+                            i.icon-bullhorn
