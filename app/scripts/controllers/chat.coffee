@@ -1,13 +1,14 @@
-@ChatCtrl = ($scope, socket) ->
+@ChatCtrl = ($scope, $location, socket) ->
   $scope.messageArray = []
+  $scope.roomArray = [{name: 'lezed1'}]
 
-  for i in [1...20]
+  for i in [1..10]
     $scope.messageArray.push({
       username: 'lezed1-test'
-      text: 'test'
+      text: 'test: ' + i
     })
-  
-  console.log $scope.messageArray
+
+
 
   $scope.sendMessage = ->
     messageObject =

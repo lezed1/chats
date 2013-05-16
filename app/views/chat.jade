@@ -3,23 +3,30 @@
         .navbar-inner
             .container
                 a.brand(href="#") Chats
+
+                ul.nav
+                    li.divider-vertical
+                    li
+                        a(href='#') Main Room
+                    li(ng-repeat='room in roomArray')
+                        a(href="#/{{room.name}}") {{room.name}}
+
                 form.navbar-form.pull-right
                     div.input-prepend
                         span.add-on 
                             i.icon-user
                         input.input-large(type='text', ng-model='username', placeholder='Enter your name!', autofocus)
     .container
-        .row-fluid
-            div(data-spy='affix', data-offset-top='20')
-                span.span2
-                    i.pull-right Username
-                span.span10 Message
+        div.row-fluid
+            span.span2
+                i.pull-right Username
+            span.span10 Message
 
-            div(ng-repeat='(messageNumber, message) in messageArray')
-                span.span2
-                    i.pull-right {{message.username}}
-                span.span10 
-                    span.pull-left {{message.text}}
+        div.row-fluid(ng-repeat='(messageNumber, message) in messageArray')
+            span.span2
+                i.pull-right {{message.username}}
+            span.span10 
+                span.pull-left {{message.text}}
                         
     .navbar.navbar-fixed-bottom
         .navbar-inner
