@@ -7,7 +7,7 @@
                 ul.nav
                     li.divider-vertical
                     li
-                        a(href='#') Main Room
+                        a(href='/#/') Main Room
                     li(ng-repeat='room in roomArray')
                         a(href="#/{{room.name}}") {{room.name}}
 
@@ -25,6 +25,8 @@
         div.row-fluid(ng-repeat='(messageNumber, message) in messageArray')
             span.span2
                 i.pull-right {{message.username}}
+                br
+                .pull-right.timestamp {{message.timestamp}}
             span.span10 
                 span.pull-left {{message.text}}
                         

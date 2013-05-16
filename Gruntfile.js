@@ -373,7 +373,6 @@ module.exports = function (grunt) {
     'copy',
     'cdnify',
     'ngmin',
-    'uglify',
     'rev',
     'usemin'
   ]);
