@@ -16,19 +16,28 @@
                         span.add-on 
                             i.icon-user
                         input.input-large(type='text', ng-model='username', placeholder='Enter your name!', autofocus)
-    .container
+    .container-fluid
         div.row-fluid
-            span.span2
-                i.pull-right Username
-            span.span10 Message
+            .span12.visible-desktop
+                .span2
+                    em.pull-right Username
+                strong.span10 Message
+            .span12.visible-phone.visible-tablet
+                em Username: 
+                strong Message
 
         div.row-fluid(ng-repeat='(messageNumber, message) in messageArray')
-            span.span2
-                i.pull-right {{message.username}}
-                br
+            .strong12.visible-desktop
+                .span2
+                    em.pull-right {{message.username}}
+                    br
+                    .pull-right.timestamp {{message.timestamp}}
+                strong.span10 
+                    .pull-left {{message.text}}
+            .span12.visible-phone.visible-tablet
+                em {{message.username}}: 
+                strong {{message.text}}
                 .pull-right.timestamp {{message.timestamp}}
-            span.span10 
-                span.pull-left {{message.text}}
         .to-bottom
                         
     .navbar.navbar-fixed-bottom
