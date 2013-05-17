@@ -1,12 +1,18 @@
-@ChatCtrl = ($scope, $location, socket) ->
+@ChatCtrl = ($scope, $location, localStorageService, socket) ->
+  room = $location.path().split('/')[1]
   $scope.messageArray = []
-  $scope.roomArray = [{name: 'lezed1'}]
+  $scope.roomList = {
+    'lezed1' : {
+      name: 'lezed1'
+    }
+  }
 
-  # for i in [1..10]
-  #   $scope.messageArray.push({
-  #     username: 'lezed1-test'
-  #     text: 'test: ' + i
-  #   })
+  for i in [1..10]
+    $scope.messageArray.push({
+      username: 'lezed1-test'
+      text: 'test: ' + i
+      timestamp: new Date().getHours() + ":" + new Date().getMinutes() + ":" + new Date().getSeconds()
+    })
 
   $scope.sendMessage = ->
     date = new Date()

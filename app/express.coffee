@@ -13,7 +13,7 @@ io.sockets.on "connection", (socket) ->
 
 io.set('log level', 2)
 
-#app.use(require('grunt-contrib-livereload/lib/utils').livereloadSnippet)
+app.use(require('grunt-contrib-livereload/lib/utils').livereloadSnippet)
 
 exports = module.exports = server
 

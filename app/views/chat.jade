@@ -6,10 +6,10 @@
 
                 ul.nav
                     li.divider-vertical
-                    li
+                    li.first-nav
                         a(href='/#/') Main Room
-                    li(ng-repeat='room in roomArray')
-                        a(href="#/{{room.name}}") {{room.name}}
+                    li(ng-repeat='(roomName, room) in roomList')
+                        a(href="#/{{roomName}}") {{roomName}}
 
                 form.navbar-form.pull-right
                     div.input-prepend
@@ -29,6 +29,7 @@
                 .pull-right.timestamp {{message.timestamp}}
             span.span10 
                 span.pull-left {{message.text}}
+        .to-bottom
                         
     .navbar.navbar-fixed-bottom
         .navbar-inner

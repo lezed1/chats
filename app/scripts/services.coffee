@@ -1,4 +1,4 @@
-angular.module("chat.services", [])
+angular.module("chat.services", ["LocalStorageModule"])
 .value("version", "0.0.1")
 .factory "socket", ($rootScope) ->
     socket = io.connect(window.location.protocol + document.domain)
