@@ -15,7 +15,10 @@ io.sockets.on "connection", (socket) ->
 io.set('log level', 2)
 
 if (process.env.NODE_ENV != 'production')
-	app.use(require('grunt-contrib-livereload/lib/utils').livereloadSnippet)
+  try
+    app.use(require('grunt-contrib-livereload/lib/utils').livereloadSnippet)
+  catch e
+    console.log e
 
 app.use(express.favicon('dist/favicon.ico'))
 

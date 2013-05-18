@@ -1,5 +1,5 @@
 (function() {
-  var app, exports, express, io, server;
+  var app, e, exports, express, io, server;
 
   express = require("express");
 
@@ -23,8 +23,13 @@
 
   io.set('log level', 2);
 
-  if (process.env !== 'production') {
-    app.use(require('grunt-contrib-livereload/lib/utils').livereloadSnippet);
+  if (process.env.NODE_ENV !== 'production') {
+    try {
+      app.use(require('grunt-contrib-livereload/lib/utils').livereloadSnippet);
+    } catch (_error) {
+      e = _error;
+      console.log(e);
+    }
   }
 
   app.use(express.favicon('dist/favicon.ico'));
