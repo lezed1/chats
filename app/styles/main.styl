@@ -13,3 +13,12 @@ form.navbar-form
 .timestamp
     font-size 66%
     color #888
+
+@media (max-width: 979px)
+    .navbar-fixed-top.navbar-absolute,
+    .navbar-fixed-bottom.navbar-absolute
+        position fixed
+        margin 0px
+
+    .navbar-absolute + div
+        margin-top 68px

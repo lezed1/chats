@@ -60,7 +60,7 @@ module.exports = function (grunt) {
           // Change this to '0.0.0.0' to access the server from outside.
           hostname: process.env.HOST || '0.0.0.0',
           bases: [path.resolve('.tmp'),path.resolve(yeomanConfig.app)],
-          server: path.resolve('.tmp/express.js')
+          server: path.resolve('express.js')
         }
       }
     },
@@ -114,10 +114,16 @@ module.exports = function (grunt) {
       options: {
         jshintrc: '.jshintrc'
       },
-      all: [
-        'Gruntfile.js',
-        '<%= yeoman.app %>/scripts/{,*/}*.js'
-      ]
+      all: {
+        files: [{
+          dot: true,
+          src: [
+            'Gruntfile.js',
+            '<%= yeoman.app %>/scripts/{,*/}*.js',
+            '!<%= yeoman.app %>/scripts/{,*/}*.js'
+          ]
+        }]
+      }
     },
     jade: {
       dist: {
@@ -156,14 +162,14 @@ module.exports = function (grunt) {
         files: [{
           expand: true,
           cwd: '<%= yeoman.app %>/',
-          src: ['{,*/}*.coffee', 'scripts/{,*/}*.coffee'],
+          src: ['{,*/}*.coffee', '!express.coffee', 'scripts/{,*/}*.coffee'],
           dest: '.tmp/',
           ext: '.js'
         },{
           expand: true,
           cwd: '<%= yeoman.app %>/',
           src: 'express.coffee',
-          dest: '.tmp/',
+          dest: '',
           ext: '.js'
         }]
       },
@@ -373,6 +379,7 @@ module.exports = function (grunt) {
     'copy',
     'cdnify',
     'ngmin',
+    'uglify',
     'rev',
     'usemin'
   ]);

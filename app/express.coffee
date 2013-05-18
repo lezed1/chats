@@ -1,4 +1,5 @@
-app = require("express")()
+express = require("express")
+app = express()
 server = require("http").createServer(app)
 io = require("socket.io").listen(server)
 
@@ -13,7 +14,10 @@ io.sockets.on "connection", (socket) ->
 
 io.set('log level', 2)
 
-app.use(require('grunt-contrib-livereload/lib/utils').livereloadSnippet)
+if (process.env != 'production')
+	app.use(require('grunt-contrib-livereload/lib/utils').livereloadSnippet)
+
+app.use(express.favicon('dist/favicon.ico'))
 
 exports = module.exports = server
 

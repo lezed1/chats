@@ -1,5 +1,5 @@
 .chat(ng-controller='ChatCtrl')
-    .navbar.navbar-fixed-top
+    .navbar.navbar-fixed-top.navbar-absolute
         .navbar-inner
             .container
                 a.brand(href="#") Chats
@@ -18,29 +18,29 @@
                         input.input-large(type='text', ng-model='username', placeholder='Enter your name!', autofocus)
     .container-fluid
         div.row-fluid
-            .span12.visible-desktop
+            .span12.visible-desktop.visible-tablet
                 .span2
                     em.pull-right Username
                 strong.span10 Message
-            .span12.visible-phone.visible-tablet
+            .span12.visible-phone
                 em Username: 
                 strong Message
 
         div.row-fluid(ng-repeat='(messageNumber, message) in messageArray')
-            .strong12.visible-desktop
+            .strong12.visible-desktop.visible-tablet
                 .span2
                     em.pull-right {{message.username}}
                     br
                     .pull-right.timestamp {{message.timestamp}}
                 strong.span10 
                     .pull-left {{message.text}}
-            .span12.visible-phone.visible-tablet
+            .span12.visible-phone
                 em {{message.username}}: 
                 strong {{message.text}}
                 .pull-right.timestamp {{message.timestamp}}
         .to-bottom
                         
-    .navbar.navbar-fixed-bottom
+    .navbar.navbar-fixed-bottom.navbar-absolute
         .navbar-inner
             .container
                 form.navbar-form(ng-submit='sendMessage()')
