@@ -27,13 +27,12 @@
                 strong Message
 
         div.row-fluid(ng-repeat='(messageNumber, message) in messageArray')
-            .strong12.visible-desktop.visible-tablet
+            .span12.visible-desktop.visible-tablet
                 .span2
                     em.pull-right {{message.username}}
                     br
                     .pull-right.timestamp {{message.timestamp}}
-                strong.span10 
-                    .pull-left {{message.text}}
+                strong.span10 {{message.text}}
             .span12.visible-phone
                 em {{message.username}}: 
                 strong {{message.text}}
