@@ -20,7 +20,7 @@ if (process.env.NODE_ENV != 'production')
   catch e
     console.log e
 
-app.use(express.favicon('dist/favicon.ico'))
+app.use(express.favicon('Public/favicon.ico'))
 
 exports = module.exports = server
 

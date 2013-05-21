@@ -15,12 +15,12 @@ angular.module("lezed1ChatYeomanApp", ["chat.services"]).config(($routeProvider)
     }
   }
 
-  for i in [1..3]
-    $scope.messageArray.push({
-      username: 'lezed1-test'
-      text: 'test: ' + i
-      timestamp: new Date().getHours() + ":" + new Date().getMinutes() + ":" + new Date().getSeconds()
-    })
+  # for i in [1..3]
+  #   $scope.messageArray.push({
+  #     username: 'lezed1-test'
+  #     text: 'test: ' + i
+  #     timestamp: new Date().getHours() + ":" + new Date().getMinutes() + ":" + new Date().getSeconds()
+  #   })
 
   $scope.sendMessage = ->
     date = new Date()
