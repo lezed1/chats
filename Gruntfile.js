@@ -24,7 +24,7 @@ module.exports = function (grunt) {
     yeoman: yeomanConfig,
     watch: {
       coffee: {
-        files: ['<%= yeoman.app %>/{,*/}*.coffee', '<%= yeoman.app %>/scripts/{,*/}*.coffee'],
+        files: ['<%= yeoman.app %>/{,*/}*.coffee', '<%= yeoman.app %>/Public/scripts/{,/}*.coffee'],
         tasks: ['coffee:dist']
       },
       jade: {
@@ -40,14 +40,14 @@ module.exports = function (grunt) {
         tasks: ['coffee:test']
       },
       compass: {
-        files: ['<%= yeoman.app %>/styles/{,*/}*.{scss,sass}'],
+        files: ['<%= yeoman.app %>/Public/styles/{,*/}*.{scss,sass}'],
         tasks: ['compass']
       },
       livereload: {
         files: [
           '{.tmp,<%= yeoman.app %>}/{,*/}*.html',
-          '{.tmp,<%= yeoman.app %>}/styles/{,*/}*.css',
-          '{.tmp,<%= yeoman.app %>}/scripts/{,*/}*.js',
+          '{.tmp,<%= yeoman.app %>}/Public/styles/{,*/}*.css',
+          '{.tmp,<%= yeoman.app %>}/Public/scripts/{,*/}*.js',
           '<%= yeoman.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
         ],
         tasks: ['livereload']
@@ -59,8 +59,8 @@ module.exports = function (grunt) {
           port: process.env.PORT || 9000,
           // Change this to '0.0.0.0' to access the server from outside.
           hostname: process.env.HOST || '0.0.0.0',
-          bases: [path.resolve('.tmp'),path.resolve(yeomanConfig.app)],
-          server: path.resolve('express.js')
+          bases: [path.resolve('.tmp/Public'),path.resolve('<%= yeoman.app %>/Public')],
+          server: path.resolve('<%= yeoman.dist %>/express.js')
         }
       }
     },
@@ -76,7 +76,7 @@ module.exports = function (grunt) {
             return [
               lrSnippet,
               mountFolder(connect, '.tmp'),
-              mountFolder(connect, yeomanConfig.app)
+              mountFolder(connect, '<%= yeoman.app %>/Public')
             ];
           }
         }
@@ -119,8 +119,8 @@ module.exports = function (grunt) {
           dot: true,
           src: [
             'Gruntfile.js',
-            '<%= yeoman.app %>/scripts/{,*/}*.js',
-            '!<%= yeoman.app %>/scripts/{,*/}*.js'
+            '<%= yeoman.app %>/Public/scripts/{,*/}*.js',
+            '!<%= yeoman.app %>/Public/scripts/{,*/}*.js'
           ]
         }]
       }
@@ -135,7 +135,7 @@ module.exports = function (grunt) {
           expand: true,
           cwd: '<%= yeoman.app %>',
           dest: '.tmp',
-          src: '{,*/}*.jade',
+          src: 'Public/{,*/}*.jade',
           ext: '.html'
         }]
       }
@@ -146,7 +146,7 @@ module.exports = function (grunt) {
           expand: true,
           cwd: '<%= yeoman.app %>',
           dest: '.tmp',
-          src: '{,*/}*.styl',
+          src: 'Public/{,*/}*.styl',
           ext: '.css'
         }]
       }
@@ -162,14 +162,14 @@ module.exports = function (grunt) {
         files: [{
           expand: true,
           cwd: '<%= yeoman.app %>/',
-          src: ['{,*/}*.coffee', '!express.coffee', 'scripts/{,*/}*.coffee'],
+          src: ['*.coffee', 'Public/scripts/{,*/}*.coffee'],
           dest: '.tmp/',
           ext: '.js'
         },{
           expand: true,
           cwd: '<%= yeoman.app %>/',
           src: 'express.coffee',
-          dest: '',
+          dest: '<%= yeoman.dist %>',
           ext: '.js'
         }]
       },
@@ -183,62 +183,45 @@ module.exports = function (grunt) {
         }]
       }
     },
-    compass: {
-      options: {
-        sassDir: '<%= yeoman.app %>/styles',
-        cssDir: '.tmp/styles',
-        imagesDir: '<%= yeoman.app %>/images',
-        javascriptsDir: '<%= yeoman.app %>/scripts',
-        fontsDir: '<%= yeoman.app %>/styles/fonts',
-        importPath: '<%= yeoman.app %>/components',
-        relativeAssets: true
-      },
-      dist: {},
-      server: {
-        options: {
-          debugInfo: true
-        }
-      }
-    },
     concat: {
       dist: {
         files: {
-          '<%= yeoman.dist %>/scripts/scripts.js': [
-            '.tmp/scripts/{,*/}*.js',
-            '<%= yeoman.app %>/scripts/{,*/}*.js'
+          '<%= yeoman.dist %>/Public/scripts/scripts.js': [
+            '.tmp/Public/scripts/{,*/}*.js',
+            '<%= yeoman.app %>/Public/scripts/{,*/}*.js'
           ]
         }
       }
     },
     useminPrepare: {
-      html: '<%= yeoman.app %>/index.html',
+      html: '<%= yeoman.app %>/Public/index.html',
       options: {
-        dest: '<%= yeoman.dist %>'
+        dest: '<%= yeoman.dist %>/Public'
       }
     },
     usemin: {
-      html: ['<%= yeoman.dist %>/{,*/}*.html'],
-      css: ['<%= yeoman.dist %>/styles/{,*/}*.css'],
+      html: ['<%= yeoman.dist %>/Public/{,*/}*.html'],
+      css: ['<%= yeoman.dist %>/Public/styles/{,*/}*.css'],
       options: {
-        dirs: ['<%= yeoman.dist %>']
+        dirs: ['<%= yeoman.dist %>/Public']
       }
     },
     imagemin: {
       dist: {
         files: [{
           expand: true,
-          cwd: '<%= yeoman.app %>/images',
+          cwd: '<%= yeoman.app %>/Public/images',
           src: '{,*/}*.{png,jpg,jpeg}',
-          dest: '<%= yeoman.dist %>/images'
+          dest: '<%= yeoman.dist %>/Public/images'
         }]
       }
     },
     cssmin: {
       dist: {
         files: {
-          '<%= yeoman.dist %>/styles/main.css': [
-            '.tmp/styles/{,*/}*.css',
-            '<%= yeoman.app %>/styles/{,*/}*.css'
+          '<%= yeoman.dist %>/Public/styles/main.css': [
+            '.tmp/Public/styles/{,*/}*.css',
+            '<%= yeoman.app %>/Public/styles/{,*/}*.css'
           ]
         }
       }
@@ -258,37 +241,37 @@ module.exports = function (grunt) {
         },
         files: [{
           expand: true,
-          cwd: '<%= yeoman.app %>',
+          cwd: '<%= yeoman.app %>/Public/',
           src: ['*.html', 'views/*.html'],
-          dest: '<%= yeoman.dist %>'
+          dest: '<%= yeoman.dist %>/Public'
         },{
           expand: true,
-          cwd: '.tmp',
+          cwd: '.tmp/Public/',
           src: ['*.html', 'views/*.html'],
-          dest: '<%= yeoman.dist %>'
+          dest: '<%= yeoman.dist %>/Public'
         }]
       }
     },
     cdnify: {
       dist: {
-        html: ['<%= yeoman.dist %>/*.html']
+        html: ['<%= yeoman.dist %>/Public/*.html']
       }
     },
     ngmin: {
       dist: {
         files: [{
           expand: true,
-          cwd: '<%= yeoman.dist %>/scripts',
+          cwd: '<%= yeoman.dist %>/Public/scripts',
           src: '*.js',
-          dest: '<%= yeoman.dist %>/scripts'
+          dest: '<%= yeoman.dist %>/Public/scripts'
         }]
       }
     },
     uglify: {
       dist: {
         files: {
-          '<%= yeoman.dist %>/scripts/scripts.js': [
-            '<%= yeoman.dist %>/scripts/scripts.js'
+          '<%= yeoman.dist %>/Public/scripts/scripts.js': [
+            '<%= yeoman.dist %>/Public/scripts/scripts.js'
           ]
         }
       }
@@ -297,10 +280,10 @@ module.exports = function (grunt) {
       dist: {
         files: {
           src: [
-            '<%= yeoman.dist %>/scripts/{,*/}*.js',
-            '<%= yeoman.dist %>/styles/{,*/}*.css',
-            '<%= yeoman.dist %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}',
-            '<%= yeoman.dist %>/styles/fonts/*'
+            '<%= yeoman.dist %>/Public/scripts/{,*/}*.js',
+            '<%= yeoman.dist %>/Public/styles/{,*/}*.css',
+            '<%= yeoman.dist %>/Public/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}',
+            '<%= yeoman.dist %>/Public/styles/fonts/*'
           ]
         }
       }
@@ -314,16 +297,14 @@ module.exports = function (grunt) {
           dest: '<%= yeoman.dist %>',
           src: [
             '*.{ico,txt}',
-            '.htaccess',
-            'components/**/*',
-            'images/{,*/}*.{gif,webp}',
-            'styles/fonts/*'
+            'Public/images/{,*/}*.{gif,webp}',
+            'Public/styles/fonts/*'
           ]
         },{
           expand: true,
           dot: true,
           cwd: '.tmp',
-          dest: '<%= yeoman.dist %>',
+          dest: '<%= yeoman.dist %>/Public',
           src: [
             'express.js'
           ]
