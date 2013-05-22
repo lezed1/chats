@@ -1,5 +1,5 @@
 (function() {
-  var app, e, exports, express, io, server;
+  var app, config, e, exports, express, io, server;
 
   express = require("express");
 
@@ -9,19 +9,9 @@
 
   io = require("socket.io").listen(server);
 
-  io.configure(function() {
-    io.set("transports", ["xhr-polling"]);
-    return io.set("polling duration", 10);
-  });
+  config = require('./configSocket');
 
-  io.sockets.on("connection", function(socket) {
-    return socket.on("message", function(data) {
-      console.log(data);
-      return socket.broadcast.emit("message", data);
-    });
-  });
-
-  io.set('log level', 2);
+  config.config(io);
 
   if (process.env.NODE_ENV !== 'production') {
     try {
@@ -32,7 +22,7 @@
     }
   }
 
-  app.use(express.favicon('Public/favicon.ico'));
+  app.use(express.favicon(__dirname + '/Public/favicon.ico'));
 
   exports = module.exports = server;
 
