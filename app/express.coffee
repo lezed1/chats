@@ -4,7 +4,7 @@ server = require("http").createServer(app)
 io = require("socket.io").listen(server)
 config = require './configSocket'
 
-io = config.config io
+config.config io
 
 if (process.env.NODE_ENV != 'production')
   try
@@ -12,7 +12,9 @@ if (process.env.NODE_ENV != 'production')
   catch e
     console.log e
 
-app.use(express.favicon('Public/favicon.ico'))
+app.use(express.favicon(__dirname + '/Public/favicon.ico'))
+
+
 
 exports = module.exports = server
 
