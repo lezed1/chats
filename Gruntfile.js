@@ -28,11 +28,11 @@ module.exports = function (grunt) {
         tasks: ['coffee:dist']
       },
       jade: {
-        files: '<%= yeoman.app %>/{,*/}*.jade',
+        files: '<%= yeoman.app %>/Public/{,*/}*.jade',
         tasks: ['jade']
       },
       stylus: {
-        files: '<%= yeoman.app %>/{,*/}*.styl',
+        files: '<%= yeoman.app %>/Public/{,*/}*.styl',
         tasks: ['stylus']
       },
       coffeeTest: {
