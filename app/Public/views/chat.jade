@@ -4,18 +4,24 @@
             .container
                 a.brand(href="#") Chats
 
-                ul.nav
-                    li.divider-vertical
-                    li.first-nav
-                        a(href='/#/') Main Room
-                    li(ng-repeat='(roomName, room) in roomList')
-                        a(href="#/{{roomName}}") {{roomName}}
+                a.btn.btn-navbar(data-toggle='collapse', data-target='.nav-collapse')
+                    .icon-bar
+                    .icon-bar
+                    .icon-bar
 
-                form.navbar-form.pull-right
-                    div.input-prepend
-                        span.add-on 
-                            i.icon-user
-                        input.input-large(type='text', ng-model='username', placeholder='Enter your name!', autofocus)
+                .nav-collapse.collapse
+                    //- ul.nav
+                    //-     li.divider-vertical
+                    //-     li.first-nav
+                    //-         a(href='/#/') Main Room
+                    //-     li(ng-repeat='(roomName, room) in roomList')
+                    //-         a(href="#/{{roomName}}") {{roomName}}
+
+                    form.navbar-form.pull-right
+                        div.input-prepend
+                            span.add-on 
+                                i.icon-user
+                            input.input-large(type='text', ng-model='username', placeholder='Enter your name!', autofocus)
     .container-fluid
         div.row-fluid
             .span12.visible-desktop.visible-tablet

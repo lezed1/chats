@@ -1,18 +1,10 @@
-express = require("express")
+express = require "express"
 app = express()
 server = require("http").createServer(app)
 io = require("socket.io").listen(server)
+config = require './configSocket'
 
-io.configure ->
-  io.set "transports", ["xhr-polling"]
-  io.set "polling duration", 10
-
-io.sockets.on "connection", (socket) ->
-  socket.on "message", (data) ->
-    console.log data
-    socket.broadcast.emit "message", data
-
-io.set('log level', 2)
+config.config io
 
 if (process.env.NODE_ENV != 'production')
   try
@@ -20,10 +12,12 @@ if (process.env.NODE_ENV != 'production')
   catch e
     console.log e
 
-app.use(express.favicon('Public/favicon.ico'))
+app.use(express.favicon(__dirname + '/Public/favicon.ico'))
+
+
 
 exports = module.exports = server
 
-# delegates user() function
+# delegates use() function
 exports.use = ->
   app.use.apply app, arguments
